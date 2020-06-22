@@ -1,0 +1,56 @@
+.data
+	deviceStatus: 0xafb
+	deviceData: 0xafa
+	clockData: 0x777
+	displayAdd: 0xbfa
+	displayClock: 0xbfc
+.code
+		ldi 7 0xfff
+		ldi 6 0x0002
+		ldi 0 0x7f1
+		ldi 1 clock
+		st 0 1
+INFINITE
+		ldi 7 0x0fff
+GETDATA1	ldi 2 0xafb
+		ld 1 2
+		ldi 2 0x004
+		and 1 1 2
+		jz GETDATA1
+		ldi 3 0xafa
+		ld 5 3
+		push 5
+		ldi 3 0x0000
+GETDATA2	ldi 2 0xafb
+		ld 1 2
+		ldi 2 0x004
+		and 1 1 2
+		jz GETDATA2
+		ldi 4 0xafa
+		ld 5 4
+		push 5
+		ldi 4 0x0000
+		call ADD2NUMBER
+		jmp INFINITE
+ADD2NUMBER	
+		pop 5
+		pop 3
+		pop 4
+		push 5
+		add 3 3 4
+		ldi 0 0xbfa
+		st 0 3
+		st 0 3
+		ret
+clock
+		push 0
+		push 1
+		ldi 1 0x777
+		ld 0 1
+		ldi 1 0xbfc
+		st 1 0
+		st 1 0
+		pop 1
+		pop 0
+		sti
+		iret

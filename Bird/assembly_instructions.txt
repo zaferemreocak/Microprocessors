@@ -1,0 +1,37 @@
+.data
+	deviceStatus: 0xafb
+	deviceData: 0xafa
+	display: 0xbfa
+.code
+INFINITE
+		ldi 7 0x0fff
+GETDATA1	ldi 2 0xafb
+		ld 1 2
+		ldi 2 0x004
+		and 1 1 2
+		jz GETDATA1
+		ldi 3 0xafa
+		ld 3 3
+		push 3
+		ldi 3 0x0000
+GETDATA2	ldi 2 0xafb
+		ld 1 2
+		ldi 2 0x004
+		and 1 1 2
+		jz GETDATA2
+		ldi 4 0xafa
+		ld 4 4
+		push 4
+		ldi 4 0x0000
+		call ADD2NUMBER
+		jmp INFINITE
+ADD2NUMBER	
+		pop 6
+		pop 3
+		pop 4
+		push 6
+		add 3 3 4
+		ldi 0 0xbfa
+		st 0 3
+		st 0 3
+		ret

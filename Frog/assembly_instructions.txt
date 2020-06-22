@@ -1,0 +1,14 @@
+ldi 0 117
+ldi 1 64
+or 0 0 1
+inc 0
+ldi 1 47
+ldi 2 15
+and 1 1 2
+sub 0 0 1
+dec 0
+ldi 1 12
+ldi 2 95
+sub 1 1 2
+not 1
+xor 0 0 1
